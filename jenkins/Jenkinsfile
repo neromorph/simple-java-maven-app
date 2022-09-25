@@ -21,10 +21,15 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Manual Approval') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                input: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan ke tahap Deploy)' 
             }
         }
+        stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                sleep 60
+            }
     }
 }
